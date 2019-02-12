@@ -55,7 +55,7 @@
 <p id="rec13p">7. Прочитайте вслух 67183
     <button id="rec13" disabled onClick="triggerRec(13, '67183')">Начать запись</button>
 </p>
-    <button id="sendaudio" disabled onClick="sendAudio">"Отправить Записи"</button>
+    <button id="sendaudio" disabled onClick="sendAudio()">"Отправить Записи"</button>
 </body>
 <script>(function() {
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -619,7 +619,7 @@
                 document.getElementById("rec" + num + "p").style.backgroundColor = 'lime';
                 if (num == 13) {
                     document.getElementById("sendaudio").disabled = false;
-                    sendaudio();
+                  
 
                 } else {
                     document.getElementById("rec" + (num + 1)).disabled = false;
@@ -677,4 +677,4 @@
     }
 
 </script>
-</html>f
+</html>
