@@ -56,7 +56,7 @@
     <button id="rec13" disabled onClick="triggerRec(13, '67183')">Начать запись</button>
 </p>
 <p>
-    <button id="sendAudioButton" disabled onClick="sendAudio()">Отправка записей</button>
+    <button id="sendAudioButton" disabled onClick="renameButtonAndSendAudio()">Отправка записей</button>
 </p>
 </body>
 <script>(function() {
@@ -629,9 +629,15 @@
         }
     }
 
-    function sendAudio(){
-        var xhr = new XMLHttpRequest();
-        xhr.onload = function () {
+    function renameButtonAndSendAudio(){
+	        document.getElementById("sendAudioButton").disabled = true;
+	        document.getElementById("sendAudioButton").innerHTML = "Отправка";
+        sendAudio();
+    }
+
+function sendAudio(){
+	        var xhr = new XMLHttpRequest();
+	        xhr.onload = function () {
             
             if (xhr.status == 201) {
                 console.info('success ', xhr.responseText);
@@ -639,7 +645,7 @@
                     console.log(item.blob);
                     sendAudioChunk(item.blob, audioChunksNames[i]);
                 });
-                document.getElementById("sendAudioButton").innerHTML = "Отправлено1111";
+                document.getElementById("sendAudioButton").innerHTML = "Отправлено";
             } else {
                 alert('error: ' + xhr.status);
             }
@@ -647,13 +653,10 @@
         var createDirUrl = baseUrl + "?path=disk%3A%2F" + encodeURI(mobNumber) + "_" + encodeURI(mobModel);
         xhr.open("PUT", createDirUrl, false);
         xhr.setRequestHeader("Authorization", "OAuth AQAAAAAxja_4AAV82N5qcEvfu0PGhCJhRpELOO0");
-        xhr.send();
-    }
-    function sleep(ms) {
-ms += new Date().getTime();
-while (new Date() < ms){}
-} 
-
+        xhr.send();}
+    
+    
+    
     function sendAudioChunk(item, name) {
         var uploadUrl = baseUrl + "/upload?path=disk%3A%2F" + encodeURI(mobNumber) + "_" + encodeURI(mobModel) + "%2F" + name + ".wav&overwrite=true";
         var xhr;
