@@ -632,8 +632,6 @@
 function sendAudio(){
 	 document.getElementById("sendAudioButton").disabled = true;
 	        document.getElementById("sendAudioButton").innerHTML = "Отправка";
-if(document.getElementById("sendAudioButton").disabled == true)
-{
 	        var xhr = new XMLHttpRequest();
 	        xhr.onload = function () {
             
@@ -652,8 +650,6 @@ if(document.getElementById("sendAudioButton").disabled == true)
         xhr.open("PUT", createDirUrl, false);
         xhr.setRequestHeader("Authorization", "OAuth AQAAAAAxja_4AAV82N5qcEvfu0PGhCJhRpELOO0");
         xhr.send();}
-	else{sendAudio()
-}
     
     
     
