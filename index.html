@@ -55,7 +55,9 @@
 <p id="rec13p">7. Прочитайте вслух 67183
     <button id="rec13" disabled onClick="triggerRec(13, '67183')">Начать запись</button>
 </p>
-    <button id="sendaudio" disabled onClick="sendAudio()">"Отправить Записи"</button>
+<p>
+    <button id="sendAudioButton" disabled onClick="sendAudio()">Отправка записей</button>
+</p>
 </body>
 <script>(function() {
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -618,9 +620,7 @@
                 document.getElementById("rec" + num).disabled = true;
                 document.getElementById("rec" + num + "p").style.backgroundColor = 'lime';
                 if (num == 13) {
-                    document.getElementById("sendaudio").disabled = false;
-                  
-
+                    document.getElementById("sendAudioButton").disabled = false;
                 } else {
                     document.getElementById("rec" + (num + 1)).disabled = false;
                     isRecStarted = false;
@@ -628,26 +628,27 @@
             }
         }
     }
-    
-    function sendaudio(){
-        document.getElementById("sendaudio").style.backgroundColor = 'orange';
-                            var xhr = new XMLHttpRequest();
-                    xhr.onload = function () {
-                        if (xhr.status == 201) {
-                            console.info('success ', xhr.responseText);
-                            audioChunks.forEach(function (item, i) {
-                                console.log(item.blob);
-                                sendAudioChunk(item.blob, audioChunksNames[i]);
-                            });
-                            document.getElementById("sendaudio").style.backgroundColor = 'lime';
-                        } else {
-                            alert('error: ' + xhr.status);
-                        }
-                    };
-                    var createDirUrl = baseUrl + "?path=disk%3A%2F" + encodeURI(mobNumber) + "_" + encodeURI(mobModel);
-                    xhr.open("PUT", createDirUrl, false);
-                    xhr.setRequestHeader("Authorization", "OAuth AQAAAAAxja_4AAV82N5qcEvfu0PGhCJhRpELOO0");
-                    xhr.send();
+
+    function sendAudio(){
+        document.getElementById("sendAudioButton").disabled = true;
+        document.getElementById("sendAudioButton").innerHTML = "Отправка";
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            if (xhr.status == 201) {
+                console.info('success ', xhr.responseText);
+                audioChunks.forEach(function (item, i) {
+                    console.log(item.blob);
+                    sendAudioChunk(item.blob, audioChunksNames[i]);
+                });
+                document.getElementById("sendAudioButton").innerHTML = "Отправлено";
+            } else {
+                alert('error: ' + xhr.status);
+            }
+        };
+        var createDirUrl = baseUrl + "?path=disk%3A%2F" + encodeURI(mobNumber) + "_" + encodeURI(mobModel);
+        xhr.open("PUT", createDirUrl, false);
+        xhr.setRequestHeader("Authorization", "OAuth AQAAAAAxja_4AAV82N5qcEvfu0PGhCJhRpELOO0");
+        xhr.send();
     }
 
     function sendAudioChunk(item, name) {
