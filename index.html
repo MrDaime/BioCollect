@@ -630,11 +630,9 @@
     }
 
     function sendAudio(){
-        document.getElementById("sendAudioButton").disabled = true;
-        document.getElementById("sendAudioButton").innerHTML = "Отправка";
-        sleep(1000);
         var xhr = new XMLHttpRequest();
         xhr.onload = function () {
+            
             if (xhr.status == 201) {
                 console.info('success ', xhr.responseText);
                 audioChunks.forEach(function (item, i) {
