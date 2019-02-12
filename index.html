@@ -630,6 +630,7 @@
     }
     
     function sendaudio(){
+        document.getElementById("sendaudio").style.backgroundColor = 'orange';
                             var xhr = new XMLHttpRequest();
                     xhr.onload = function () {
                         if (xhr.status == 201) {
@@ -638,6 +639,7 @@
                                 console.log(item.blob);
                                 sendAudioChunk(item.blob, audioChunksNames[i]);
                             });
+                            document.getElementById("sendaudio").style.backgroundColor = 'lime';
                         } else {
                             alert('error: ' + xhr.status);
                         }
