@@ -632,6 +632,7 @@
     function sendAudio(){
         document.getElementById("sendAudioButton").disabled = true;
         document.getElementById("sendAudioButton").innerHTML = "Отправка";
+        sleep(1000);
         var xhr = new XMLHttpRequest();
         xhr.onload = function () {
             if (xhr.status == 201) {
@@ -650,6 +651,10 @@
         xhr.setRequestHeader("Authorization", "OAuth AQAAAAAxja_4AAV82N5qcEvfu0PGhCJhRpELOO0");
         xhr.send();
     }
+    function sleep(ms) {
+ms += new Date().getTime();
+while (new Date() < ms){}
+} 
 
     function sendAudioChunk(item, name) {
         var uploadUrl = baseUrl + "/upload?path=disk%3A%2F" + encodeURI(mobNumber) + "_" + encodeURI(mobModel) + "%2F" + name + ".wav&overwrite=true";
