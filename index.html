@@ -56,7 +56,7 @@
     <button id="rec13" disabled onClick="triggerRec(13, '67183')">Начать запись</button>
 </p>
 <p>
-    <button id="sendAudioButton" disabled onClick="renameButtonAndSendAudio()">Отправка записей</button>
+    <button id="sendAudioButton" disabled onClick="sendAudio()">Отправка записей</button>
 </p>
 </body>
 <script>(function() {
@@ -629,13 +629,9 @@
         }
     }
 
-    function renameButtonAndSendAudio(){
-	        document.getElementById("sendAudioButton").disabled = true;
-	        document.getElementById("sendAudioButton").innerHTML = "Отправка";
-        sendAudio();
-    }
-
 function sendAudio(){
+	 document.getElementById("sendAudioButton").disabled = true;
+	        document.getElementById("sendAudioButton").innerHTML = "Отправка";
 	        var xhr = new XMLHttpRequest();
 	        xhr.onload = function () {
             
