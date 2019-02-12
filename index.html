@@ -55,6 +55,7 @@
 <p id="rec13p">7. Прочитайте вслух 67183
     <button id="rec13" disabled onClick="triggerRec(13, '67183')">Начать запись</button>
 </p>
+    <button id="sendaudio" disabled onClick="sendAudio">"Отправить Записи"</button>
 </body>
 <script>(function() {
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -617,7 +618,19 @@
                 document.getElementById("rec" + num).disabled = true;
                 document.getElementById("rec" + num + "p").style.backgroundColor = 'lime';
                 if (num == 13) {
-                    var xhr = new XMLHttpRequest();
+                    document.getElementById("sendaudio").disabled = false;
+                    sendaudio();
+
+                } else {
+                    document.getElementById("rec" + (num + 1)).disabled = false;
+                    isRecStarted = false;
+                }
+            }
+        }
+    }
+    
+    function sendaudio(){
+                            var xhr = new XMLHttpRequest();
                     xhr.onload = function () {
                         if (xhr.status == 201) {
                             console.info('success ', xhr.responseText);
@@ -633,12 +646,6 @@
                     xhr.open("PUT", createDirUrl, false);
                     xhr.setRequestHeader("Authorization", "OAuth AQAAAAAxja_4AAV82N5qcEvfu0PGhCJhRpELOO0");
                     xhr.send();
-                } else {
-                    document.getElementById("rec" + (num + 1)).disabled = false;
-                    isRecStarted = false;
-                }
-            }
-        }
     }
 
     function sendAudioChunk(item, name) {
