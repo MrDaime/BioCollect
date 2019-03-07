@@ -466,7 +466,8 @@
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;	
     let isRecStarted = false;	
     let mobNumber;	
-    let mobModel;	
+    let mobModel;
+    let curNum;	
     let audioChunks = [];	
     let audioChunksNames = [];	
     let baseUrl = "https://cloud-api.yandex.net/v1/disk/resources";	
@@ -481,13 +482,18 @@
     }	
      function handleSuccess () {	
         audioTrack.startRecording();	
-        console.log("Recording started. Speak now!");	
+        console.log("Recording started. Speak now!");
+        //setTimeout(function() {
+        	document.getElementById("rec" + curNum).innerHTML = "Остановить запись";	
+        	document.getElementById("rec" + curNum + "p").style.backgroundColor = 'orange';	
+        //}, 2000);
         isRecStarted = true;	
     }	
      let errorCallback = (error) => {	
         console.log('navigator.getUserMedia error: ', error);	
     };	
-     function triggerRec(num, name) {	
+     function triggerRec(num, name) {
+     	curNum = num;	
         if (!document.getElementById("mobNumber").value) {	
             alert("Вначале заполните, пожалуйста, номер Вашего мобильного телефона");	
         } else if (!document.getElementById("mobModel").value) {	
@@ -496,8 +502,7 @@
             audioChunksNames[num - 1] = name;	
             if (!isRecStarted) {	
                 navigator.getUserMedia({"audio": true, "video": false}, handleSuccess, errorCallback);	
-                document.getElementById("rec" + num).innerHTML = "Остановить запись";	
-                document.getElementById("rec" + num + "p").style.backgroundColor = 'orange';	
+
             } else {	
                 audioTrack.stopRecording();	
                 audioTrack.play();	
