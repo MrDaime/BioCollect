@@ -483,10 +483,10 @@
      function handleSuccess () {	
         audioTrack.startRecording();	
         console.log("Recording started. Speak now!");
-        //setTimeout(function() {
+        setTimeout(function() {
         	document.getElementById("rec" + curNum).innerHTML = "Остановить запись";	
         	document.getElementById("rec" + curNum + "p").style.backgroundColor = 'orange';	
-        //}, 2000);
+        }, 1500);
         isRecStarted = true;	
     }	
      let errorCallback = (error) => {	
